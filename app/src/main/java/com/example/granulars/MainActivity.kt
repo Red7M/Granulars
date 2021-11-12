@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         resetButton = findViewById(R.id.reset)
 
         // Get some data from clouds
-        activationCount = 150000
+        activationCount =  12345
 
         apiInterface = APIClient.getClient()?.create(APIInterface::class.java) ?: return
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     val animation = Animation()
                     animation.command = "display"
                     animation.animType = "static"
-                    animation.animData = "13 " +
+                    animation.animData = "71 " +
                             "42798 1 255 255 0 0 5 " + //(0, 400)
                             "28771 1 255 255 0 0 5 " + //(0, 300)
                             "11691 1 255 255 0 0 5 " + //(0, 200)
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     animation.palette = listOf(palette)
                     animation.colorType = "HSB"
 
-                    animation.animData = Helper.matchSingleDigitOrK("8", animation.animData!!, panels)
+                    animation.animData = Helper.loopThroughCount(activationCount, animation.animData!!, panels).trim()
                     write.write = animation
 
                     apiInterface.animate(write).enqueue(object : Callback<Write> {
@@ -97,20 +97,9 @@ class MainActivity : AppCompatActivity() {
                     val animation = Animation()
                     animation.command = "display"
                     animation.animType = "static"
-                    animation.animData = "13 " +
-                            "42798 1 0 0 0 0 20 " + //(0, 400)
-                            "28771 1 0 0 0 0 20 " + //(0, 300)
-                            "11691 1 0 0 0 0 20 " + //(0, 200)
-                            "48040 1 0 0 0 0 20 " + //(100, 200)
-                            "47811 1 0 0 0 0 20 " + //(0, 100)
-                            "61100 1 0 0 0 0 20 " + //(0, 0)
-                            "64867 1 0 0 0 0 20 " + //(100, 0)
-                            "47338 1 0 0 0 0 20 " + //(200, 0)
-                            "23033 1 0 0 0 0 20 " + //(100, 400)
-                            "43080 1 0 0 0 0 20 " + //(200, 400)
-                            "4698 1 0 0 0 0 20 " + //(200, 300)
-                            "12382 1 0 0 0 0 20 " + //(200, 200)
-                            "16366 1 0 0 0 0 20"//(200, 100)
+                    animation.animData = ""
+                    animation.animData = Helper.reset(0, animation.animData!!, panels).trim()
+
                     animation.loop = false
                     val palette = Palette()
                     palette.hue = 0
